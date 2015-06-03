@@ -1,0 +1,42 @@
+html, body {
+	width: 100%;
+	height: 100%;
+
+	padding: 0;
+	margin: 0;
+}
+
+$colours: red orange yellow green blue;
+
+.range {
+	&__container {
+		width: 100%;
+		height: 50vh;
+
+		overflow: hidden;
+	}
+
+	&__content {
+		position: absolute;
+    	width: 100%;
+ 		-webkit-user-select: none;
+    	box-sizing: border-box;
+	}
+
+	&__item {
+		height: 50vh;
+		width: 100vw;
+		position: absolute;
+
+
+
+		@for $index from 1 through 5 {
+			&:nth-child(#{$index}) {
+				background-color: nth($colours, $index);
+				left: #{($index - 1) * 100%};
+			}
+		}
+	}
+
+
+}
