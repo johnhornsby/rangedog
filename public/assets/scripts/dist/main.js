@@ -1,4 +1,4 @@
-define(["exports", "require", "jquery", "unidragger", "./rangedog"], function (exports, _require, _jquery, _unidragger, _rangedog) {
+define(["exports", "require", "jquery", "unidragger", "./rangedog", "./dragger"], function (exports, _require, _jquery, _unidragger, _rangedog, _dragger) {
 	"use strict";
 
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -19,6 +19,8 @@ define(["exports", "require", "jquery", "unidragger", "./rangedog"], function (e
 
 	var _Rangedog = _interopRequire(_rangedog);
 
+	var _Dragger = _interopRequire(_dragger);
+
 	var Main = (function () {
 		function Main() {
 			_classCallCheck(this, Main);
@@ -31,6 +33,9 @@ define(["exports", "require", "jquery", "unidragger", "./rangedog"], function (e
 		_createClass(Main, [{
 			key: "_init",
 			value: function _init() {
+				var elem = document.getElementsByClassName("range")[0];
+				this._dragger = new _Dragger(elem);
+				this._dragger.create();
 				this._rangedog = new _Rangedog();
 			}
 		}]);

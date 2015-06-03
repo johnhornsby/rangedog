@@ -5,6 +5,7 @@ import Unidragger from "unidragger";
 
 // App Modules
 import Rangedog from "./rangedog";
+import Dragger from "./dragger";
 
 
 
@@ -18,7 +19,12 @@ class Main {
 
 
 	_init() {
+		const elem = document.getElementsByClassName('range')[0];
+		this._dragger = new Dragger(elem);
+		this._dragger.create();
 		this._rangedog = new Rangedog();
+
+
 	}
 }
 
