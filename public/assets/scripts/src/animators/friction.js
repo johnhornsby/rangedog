@@ -3,11 +3,11 @@ export default class FrictionAnimator {
   
   constructor() {
     this.velocity = 0;
-    this.tolerance = 1 / 100;
+    this.tolerance = 1 / 1000;
     this.friction = 0.1;
     this.x = 0;
     this.destinationX = 1;
-    this.acceleration = (this.destinationX - this.x) * this.friction;;
+    this.acceleration = (this.destinationX - this.x) * this.friction;
     this.previousX = 0;
   }
 
@@ -30,7 +30,7 @@ export default class FrictionAnimator {
 
 
   isFinished() {
-    return ( Math.round( this.velocity / this.tolerance) >= 0 ) ? true: false;
+    return ( Math.round( this.velocity / this.tolerance) === 0 ) ? true: false;
   }
 
 }

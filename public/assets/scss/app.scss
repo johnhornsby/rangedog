@@ -27,13 +27,20 @@ $colours: black grey tan aqua lime;
 
 	&__item {
 		height: 100px;
-		width: 33.33vw;
+		width: 100vw;
 		position: absolute;
 
-		@for $index from 1 through 5 {
+		@for $index from 1 through 90 {
 			&:nth-child(#{$index}) {
-				background-color: nth($colours, $index);
-				left: #{($index - 1) * 33.33vw};
+				background-color: #{rgb($index, $index, $index)};
+				left: #{($index - 1) * 100vw};
+			}
+		}
+		@for $index from 91 through 180 {
+			&:nth-child(#{$index}) {
+				$inveredIndex: 90 - ($index - 90);
+				background-color: #{rgb($inveredIndex, $inveredIndex, $inveredIndex)};
+				left: #{($index - 1) * 100vw};
 			}
 		}
 	}

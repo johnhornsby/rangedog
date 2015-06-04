@@ -3,10 +3,10 @@ import require from "require";
 import $ from "jquery";
 import Unidragger from "unidragger";
 
-import {extend, sum} from "utils";
 // App Modules
-// import Rangedog from "./rangedog";
+import Rangedog from "./rangedog";
 import Dragger from "./dragger";
+
 
 
 
@@ -14,8 +14,8 @@ class Main {
 
 	constructor() {
 		this._rangedog = null;
+		this._content = null;
 		this._init();
-		console.log(sum[1,2,3]);
 	}
 
 
@@ -26,29 +26,50 @@ class Main {
 
 		const options = {
 			length: 180,
-			start: 0,
 			wrap: true,
 			inertia: true,
+			rounded: true,
 			update: this._onRangeUpdate.bind(this)
 		}
-		// this._rangedog = new Rangedog(options);
+		this._rangedog = new Rangedog(options);
 
 		this._dragger.on('dragMove', this._onDragMove.bind(this));
+		this._dragger.on('dragEnd', this._onDragEnd.bind(this));
 
 		$('.range__next').on('click', this._onNextClick.bind(this));
+		$('.range__previous').on('click', this._onPreviousClick.bind(this));
+
+		this._content = document.getElementsByClassName('range__content')[0];
+
 	}
+
 
 	_onNextClick() {
-		// this._rangedog.slideTo(90);
+		this._rangedog.slideTo(this._rangedog.index - 50);
 	}
 
-	_onRangeUpdate(x) {
-		console.log(x);
+
+	_onPreviousClick() {
+		this._rangedog.slideTo(45);
 	}
+
+
+	_onRangeUpdate(x) {
+
+		console.log(`_onRangeUpdate ${x}`);
+		x *= -100;
+		this._content.style.transform = `translate3d(${x}%, 0, 0)`;
+	}
+
 
 	_onDragMove(deltaX) {
 		// console.log(deltaX);
-		// this._rangedog.increment(deltaX);
+		this._rangedog.increment(deltaX);
+	}
+
+
+	_onDragEnd() {
+		this._rangedog.activateInertiaIfAny();
 	}
 }
 
