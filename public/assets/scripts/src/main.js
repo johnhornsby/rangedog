@@ -3,8 +3,9 @@ import require from "require";
 import $ from "jquery";
 import Unidragger from "unidragger";
 
+import {extend, sum} from "utils";
 // App Modules
-import Rangedog from "./rangedog";
+// import Rangedog from "./rangedog";
 import Dragger from "./dragger";
 
 
@@ -13,8 +14,8 @@ class Main {
 
 	constructor() {
 		this._rangedog = null;
-
 		this._init();
+		console.log(sum[1,2,3]);
 	}
 
 
@@ -30,9 +31,15 @@ class Main {
 			inertia: true,
 			update: this._onRangeUpdate.bind(this)
 		}
-		this._rangedog = new Rangedog(options);
+		// this._rangedog = new Rangedog(options);
 
 		this._dragger.on('dragMove', this._onDragMove.bind(this));
+
+		$('.range__next').on('click', this._onNextClick.bind(this));
+	}
+
+	_onNextClick() {
+		// this._rangedog.slideTo(90);
 	}
 
 	_onRangeUpdate(x) {
@@ -41,7 +48,7 @@ class Main {
 
 	_onDragMove(deltaX) {
 		// console.log(deltaX);
-		this._rangedog.increment(deltaX);
+		// this._rangedog.increment(deltaX);
 	}
 }
 

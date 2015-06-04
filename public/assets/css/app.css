@@ -19,17 +19,19 @@ html, body {
   width: 33.33vw;
   position: absolute; }
   .range__item:nth-child(1) {
-    background-color: red;
+    background-color: black;
     left: 0vw; }
   .range__item:nth-child(2) {
-    background-color: orange;
+    background-color: grey;
     left: 33.33vw; }
   .range__item:nth-child(3) {
-    background-color: yellow;
+    background-color: tan;
     left: 66.66vw; }
   .range__item:nth-child(4) {
-    background-color: green;
+    background-color: aqua;
     left: 99.99vw; }
   .range__item:nth-child(5) {
-    background-color: blue;
+    background-color: lime;
     left: 133.32vw; }
+
+/*# sourceMappingURL=app.css.map */

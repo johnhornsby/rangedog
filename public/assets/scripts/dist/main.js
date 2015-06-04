@@ -1,40 +1,38 @@
-define(["exports", "require", "jquery", "unidragger", "./rangedog", "./dragger"], function (exports, _require, _jquery, _unidragger, _rangedog, _dragger) {
+define(["exports", "require", "jquery", "unidragger", "utils", "./dragger"], function (exports, _require, _jquery, _unidragger, _utils, _dragger) {
+	// Bower Modules
 	"use strict";
-
-	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-	var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	// Bower Modules
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _require2 = _interopRequire(_require);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _$ = _interopRequire(_jquery);
+	var _require2 = _interopRequireDefault(_require);
 
-	var _Unidragger = _interopRequire(_unidragger);
+	var _$ = _interopRequireDefault(_jquery);
+
+	var _Unidragger = _interopRequireDefault(_unidragger);
 
 	// App Modules
+	// import Rangedog from "./rangedog";
 
-	var _Rangedog = _interopRequire(_rangedog);
-
-	var _Dragger = _interopRequire(_dragger);
+	var _Dragger = _interopRequireDefault(_dragger);
 
 	var Main = (function () {
 		function Main() {
 			_classCallCheck(this, Main);
 
 			this._rangedog = null;
-
 			this._init();
+			console.log(_utils.sum[(1, 2, 3)]);
 		}
 
 		_createClass(Main, [{
 			key: "_init",
 			value: function _init() {
 				var elem = document.getElementsByClassName("range")[0];
-				this._dragger = new _Dragger(elem);
+				this._dragger = new _Dragger["default"](elem);
 				this._dragger.create();
 
 				var options = {
@@ -44,10 +42,15 @@ define(["exports", "require", "jquery", "unidragger", "./rangedog", "./dragger"]
 					inertia: true,
 					update: this._onRangeUpdate.bind(this)
 				};
-				this._rangedog = new _Rangedog(options);
+				// this._rangedog = new Rangedog(options);
 
 				this._dragger.on("dragMove", this._onDragMove.bind(this));
+
+				(0, _$["default"])(".range__next").on("click", this._onNextClick.bind(this));
 			}
+		}, {
+			key: "_onNextClick",
+			value: function _onNextClick() {}
 		}, {
 			key: "_onRangeUpdate",
 			value: function _onRangeUpdate(x) {
@@ -55,10 +58,7 @@ define(["exports", "require", "jquery", "unidragger", "./rangedog", "./dragger"]
 			}
 		}, {
 			key: "_onDragMove",
-			value: function _onDragMove(deltaX) {
-				// console.log(deltaX);
-				this._rangedog.increment(deltaX);
-			}
+			value: function _onDragMove(deltaX) {}
 		}]);
 
 		return Main;
@@ -66,4 +66,9 @@ define(["exports", "require", "jquery", "unidragger", "./rangedog", "./dragger"]
 
 	new Main();
 });
+
+// this._rangedog.slideTo(90);
+
+// console.log(deltaX);
+// this._rangedog.increment(deltaX);
 //# sourceMappingURL=main.js.map
