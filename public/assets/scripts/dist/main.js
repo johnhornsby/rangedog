@@ -36,7 +36,28 @@ define(["exports", "require", "jquery", "unidragger", "./rangedog", "./dragger"]
 				var elem = document.getElementsByClassName("range")[0];
 				this._dragger = new _Dragger(elem);
 				this._dragger.create();
-				this._rangedog = new _Rangedog();
+
+				var options = {
+					length: 180,
+					start: 0,
+					wrap: true,
+					inertia: true,
+					update: this._onRangeUpdate.bind(this)
+				};
+				this._rangedog = new _Rangedog(options);
+
+				this._dragger.on("dragMove", this._onDragMove.bind(this));
+			}
+		}, {
+			key: "_onRangeUpdate",
+			value: function _onRangeUpdate(x) {
+				console.log(x);
+			}
+		}, {
+			key: "_onDragMove",
+			value: function _onDragMove(deltaX) {
+				// console.log(deltaX);
+				this._rangedog.increment(deltaX);
 			}
 		}]);
 

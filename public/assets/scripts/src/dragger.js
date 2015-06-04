@@ -7,6 +7,7 @@ export default class Dragger extends Unidragger {
 		super();
 		this.handles = null;
 		this.element = elem;
+		this.last = 0; 
 	}
 
 	create() {
@@ -19,10 +20,13 @@ export default class Dragger extends Unidragger {
 	}
 
 	dragMove( event, pointer, moveVector ) {
-	  var dragX = this.dragStartPoint.x + moveVector.x;
-	  var dragY = this.dragStartPoint.y + moveVector.y;
-	  // this.element.style.left = dragX + 'px';
-	  // this.element.style.top = dragY + 'px';
+	  // var dragX = this.dragStartPoint.x + moveVector.x;
+
+	  const delta = moveVector.x - this.last;
+
+	  this.last = moveVector.x;
+
+	  this.emit("dragMove", delta);
 	};
 
 	dragEnd( event, pointer ) {

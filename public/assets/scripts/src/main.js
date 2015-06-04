@@ -22,9 +22,26 @@ class Main {
 		const elem = document.getElementsByClassName('range')[0];
 		this._dragger = new Dragger(elem);
 		this._dragger.create();
-		this._rangedog = new Rangedog();
 
+		const options = {
+			length: 180,
+			start: 0,
+			wrap: true,
+			inertia: true,
+			update: this._onRangeUpdate.bind(this)
+		}
+		this._rangedog = new Rangedog(options);
 
+		this._dragger.on('dragMove', this._onDragMove.bind(this));
+	}
+
+	_onRangeUpdate(x) {
+		console.log(x);
+	}
+
+	_onDragMove(deltaX) {
+		// console.log(deltaX);
+		this._rangedog.increment(deltaX);
 	}
 }
 
