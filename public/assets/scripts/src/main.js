@@ -1,5 +1,5 @@
 // Bower Modules
-import require from "almond";
+import require from "require";
 import Unidragger from "unidragger";
 
 // App Modules
@@ -56,15 +56,14 @@ class Main {
 
 
 	_onRangeUpdate(x) {
-
-		console.log(`_onRangeUpdate ${x}`);
+		// console.log(`_onRangeUpdate ${x}`);
 		x *= -100;
 		this._content.style.transform = `translate3d(${x}%, 0, 0)`;
 	}
 
 
 	_onDragMove(deltaX) {
-		// console.log(deltaX);
+		//console.log(deltaX);
 		this._rangedog.increment(deltaX);
 	}
 

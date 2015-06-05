@@ -17,7 +17,7 @@ export default class FrictionAnimator {
     this.velocity += this.acceleration;
     this.x += this.velocity;
     
-    console.log(`acceleration ${this.acceleration} velocity ${this.velocity}`);
+    // console.log(`acceleration ${this.acceleration} velocity ${this.velocity}`);
     
     this.velocity *= (1 - this.friction);
     

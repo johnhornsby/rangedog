@@ -19,10 +19,10 @@ define(["exports", "module", "unidragger"], function (exports, module, _unidragg
 
 			_get(Object.getPrototypeOf(Dragger.prototype), "constructor", this).call(this);
 
-			this.handles = null;
-			this.element = elem;
-			this.last = 0;
-			this.modifier = 0.25;
+			this._element = elem;
+			this._last = 0;
+			this._modifier = 0.25;
+			this._isDragging = false;
 		}
 
 		_inherits(Dragger, _Unidragger);
@@ -30,30 +30,43 @@ define(["exports", "module", "unidragger"], function (exports, module, _unidragg
 		_createClass(Dragger, [{
 			key: "create",
 			value: function create() {
-				this.handles = [this.element];
+				this.handles = [this._element];
 				this.bindHandles();
 			}
 		}, {
 			key: "dragStart",
 			value: function dragStart(event, pointer) {
+				console.log("dragStart");
+				this._last = 0;
+				this._isDragging = true;
 				this.emit("dragStart");
 			}
 		}, {
 			key: "dragMove",
 			value: function dragMove(event, pointer, moveVector) {
 
-				var x = this.modifier * moveVector.x;
+				var x = this._modifier * moveVector.x;
 
-				var delta = x - this.last;
+				var delta = x - this._last;
 
-				this.last = x;
+				this._last = x;
 
 				this.emit("dragMove", delta);
 			}
 		}, {
 			key: "dragEnd",
 			value: function dragEnd(event, pointer) {
+				this._isDragging = false;
+				console.log("dragEnd");
 				this.emit("dragEnd");
+			}
+		}, {
+			key: "pointerDone",
+			value: function pointerDone(event, pointer) {
+				if (this._isDragging === true) {
+					return;
+				}
+				//console.log(`pointerDone x:${this.pointerDownPoint.x} y:${this.pointerDownPoint.y}`);
 			}
 		}]);
 

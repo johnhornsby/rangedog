@@ -1,4 +1,4 @@
-define(["exports", "almond", "unidragger", "rangedog", "dragger"], function (exports, _almond, _unidragger, _rangedog, _dragger) {
+define(["exports", "require", "unidragger", "rangedog", "dragger"], function (exports, _require, _unidragger, _rangedog, _dragger) {
 	// Bower Modules
 	"use strict";
 
@@ -8,7 +8,7 @@ define(["exports", "almond", "unidragger", "rangedog", "dragger"], function (exp
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _require = _interopRequireDefault(_almond);
+	var _require2 = _interopRequireDefault(_require);
 
 	var _Unidragger = _interopRequireDefault(_unidragger);
 
@@ -66,15 +66,14 @@ define(["exports", "almond", "unidragger", "rangedog", "dragger"], function (exp
 		}, {
 			key: "_onRangeUpdate",
 			value: function _onRangeUpdate(x) {
-
-				console.log("_onRangeUpdate " + x);
+				// console.log(`_onRangeUpdate ${x}`);
 				x *= -100;
 				this._content.style.transform = "translate3d(" + x + "%, 0, 0)";
 			}
 		}, {
 			key: "_onDragMove",
 			value: function _onDragMove(deltaX) {
-				// console.log(deltaX);
+				//console.log(deltaX);
 				this._rangedog.increment(deltaX);
 			}
 		}, {
