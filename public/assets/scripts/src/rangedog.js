@@ -1,6 +1,6 @@
 import EventEmitter from "eventEmitter/EventEmitter";
-import Animate from "./animate";
-import Utils from "./utils";
+import Animate from "animate";
+import Utils from "utils";
 
 
 const Rangedog = class Rangedog extends EventEmitter {

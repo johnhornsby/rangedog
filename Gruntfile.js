@@ -62,10 +62,8 @@ module.exports = function(grunt) {
 				options: {
 					// url that is relative to the require paths
 					baseUrl: "public/assets/scripts/dist/",
-					mainConfigFile: "public/assets/scripts/js/require-config.js",
-					name: "main",
-					out: "public/assets/scripts/js/app.js",
-					optimize: "none"
+					mainConfigFile: "public/assets/scripts/js/almond-config.js",
+					out: "public/assets/scripts/js/app.js"
 				}
 			}
 		}

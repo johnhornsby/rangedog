@@ -1,9 +1,9 @@
 define(['exports', 'module'], function (exports, module) {
     'use strict';
 
-    var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
-
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
     var Utils = (function () {
         function Utils() {
@@ -20,24 +20,14 @@ define(['exports', 'module'], function (exports, module) {
             }
         }, {
             key: 'sum',
-            value: (function (_sum) {
-                function sum(_x) {
-                    return _sum.apply(this, arguments);
-                }
-
-                sum.toString = function () {
-                    return _sum.toString();
-                };
-
-                return sum;
-            })(function (arr) {
+            value: function sum(arr) {
                 var sum = 0;
                 var d = arr.length;
                 while (d--) {
                     sum += arr[d];
                 }
                 return sum;
-            })
+            }
         }]);
 
         return Utils;

@@ -1,21 +1,21 @@
-define(["exports", "module", "eventEmitter/EventEmitter", "./animate", "./utils"], function (exports, module, _eventEmitterEventEmitter, _animate, _utils) {
+define(["exports", "module", "eventEmitter/EventEmitter", "animate", "utils"], function (exports, module, _eventEmitterEventEmitter, _animate, _utils) {
 	"use strict";
-
-	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-	var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+	var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-	var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var _EventEmitter2 = _interopRequire(_eventEmitterEventEmitter);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _Animate = _interopRequire(_animate);
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 
-	var _Utils = _interopRequire(_utils);
+	var _EventEmitter2 = _interopRequireDefault(_eventEmitterEventEmitter);
+
+	var _Animate = _interopRequireDefault(_animate);
+
+	var _Utils = _interopRequireDefault(_utils);
 
 	var Rangedog = (function (_EventEmitter) {
 		function Rangedog(options) {
@@ -83,8 +83,8 @@ define(["exports", "module", "eventEmitter/EventEmitter", "./animate", "./utils"
 			key: "_init",
 			value: function _init(options) {
 				// Quick merge of default and incoming options
-				_Utils.extend(this._options, this._DEFAULT_OPTIONS);
-				_Utils.extend(this._options, options);
+				_Utils["default"].extend(this._options, this._DEFAULT_OPTIONS);
+				_Utils["default"].extend(this._options, options);
 				this._length = this._options.length;
 				this._wrap = this._options.wrap;
 				this._inertia = this._options.inertia;
@@ -119,7 +119,7 @@ define(["exports", "module", "eventEmitter/EventEmitter", "./animate", "./utils"
 				if (toNearest === true) {
 					x = this._checkAndAdjustPolarityForShortestDistance(x, this._x, this._length);
 				}
-				this._animateInstance = new _Animate({
+				this._animateInstance = new _Animate["default"]({
 					startValue: this._x,
 					endValue: x,
 					update: this._onAnimateUpdate.bind(this),
@@ -242,7 +242,7 @@ define(["exports", "module", "eventEmitter/EventEmitter", "./animate", "./utils"
 		}]);
 
 		return Rangedog;
-	})(_EventEmitter2);
+	})(_EventEmitter2["default"]);
 
 	module.exports = Rangedog;
 });

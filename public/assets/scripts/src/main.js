@@ -1,11 +1,10 @@
 // Bower Modules
-import require from "require";
-import $ from "jquery";
+import require from "almond";
 import Unidragger from "unidragger";
 
 // App Modules
-import Rangedog from "./rangedog";
-import Dragger from "./dragger";
+import Rangedog from "rangedog";
+import Dragger from "dragger";
 
 
 
@@ -36,8 +35,10 @@ class Main {
 		this._dragger.on('dragMove', this._onDragMove.bind(this));
 		this._dragger.on('dragEnd', this._onDragEnd.bind(this));
 
-		$('.range__next').on('click', this._onNextClick.bind(this));
-		$('.range__previous').on('click', this._onPreviousClick.bind(this));
+		const nextButton = document.getElementsByClassName('range__next')[0];
+		const prevButton = document.getElementsByClassName('range__previous')[0];
+		nextButton.addEventListener('click', this._onNextClick.bind(this));
+		prevButton.addEventListener('click', this._onPreviousClick.bind(this));
 
 		this._content = document.getElementsByClassName('range__content')[0];
 
