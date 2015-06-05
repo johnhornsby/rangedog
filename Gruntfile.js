@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: "dev/public/assets/scripts/dist/",
+						cwd: "dev/public/assets/scripts/dist/rangedog/",
 						src: ["**"],
 						dest: "lib/"
 					}

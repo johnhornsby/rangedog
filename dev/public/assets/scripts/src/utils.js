@@ -19,12 +19,6 @@ const Utils = class Utils {
 
 export default new Utils();
 
-
-
-/*
-GLOBALS BELOW
-*/
-// request animation frame
 (function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];

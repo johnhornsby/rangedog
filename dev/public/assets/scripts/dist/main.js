@@ -1,4 +1,4 @@
-define(["exports", "require", "unidragger", "rangedog", "dragger"], function (exports, _require, _unidragger, _rangedog, _dragger) {
+define(["exports", "require", "./rangedog/rangedog", "dragger"], function (exports, _require, _rangedogRangedog, _dragger) {
 	"use strict";
 
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -11,11 +11,9 @@ define(["exports", "require", "unidragger", "rangedog", "dragger"], function (ex
 
 	var _require2 = _interopRequire(_require);
 
-	var _Unidragger = _interopRequire(_unidragger);
-
 	// App Modules
 
-	var _Rangedog = _interopRequire(_rangedog);
+	var _Rangedog = _interopRequire(_rangedogRangedog);
 
 	var _Dragger = _interopRequire(_dragger);
 

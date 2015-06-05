@@ -1,9 +1,8 @@
 // Bower Modules
 import require from "require";
-import Unidragger from "unidragger";
 
 // App Modules
-import Rangedog from "rangedog";
+import Rangedog from "./rangedog/rangedog";
 import Dragger from "dragger";
 
 
