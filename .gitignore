@@ -2,6 +2,6 @@
 .sass-cache
 node_modules
 
-public/assets/bower_components
+dev/public/assets/bower_components
 
 npm-debug.log

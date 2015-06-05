@@ -1,19 +1,18 @@
 module.exports = function(grunt) {
 	
 	grunt.initConfig({
-		pkg: grunt.file.readJSON("package.json"),
 		babel: {
 			options: {
 				modules: "amd",
-				sourceMap: true
+				sourceMap: false
 			},
 			dist: {
 				files: [
 					{
 						expand: true,
-						cwd: "public/assets/scripts/src/",
+						cwd: "dev/public/assets/scripts/src/",
 						src: ["**/*.js"],
-						dest: "public/assets/scripts/dist/",
+						dest: "dev/public/assets/scripts/dist/",
 						ext: ".js"
 					}
 				]
@@ -22,19 +21,19 @@ module.exports = function(grunt) {
 		sass: {
 			dist: {
 				files: {
-					'public/assets/css/app.css': 'public/assets/scss/app.scss'
+					'dev/public/assets/css/app.css': 'dev/public/assets/scss/app.scss'
 				}
 			}
 		},
 		develop: {
 			server: {
-				file: 'server.js'
+				file: 'dev/server.js'
 			}
 		},
 		watch: {
 			js: {
 				files: [
-					'public/assets/scripts/dist/**/*.js'
+					'dev/public/assets/scripts/dist/**/*.js'
 				],
 				tasks: ['develop'],
 				options: {
@@ -43,13 +42,13 @@ module.exports = function(grunt) {
 			},
 			es6: {
 				files: [
-					'public/assets/scripts/src/**/*.js'
+					'dev/public/assets/scripts/src/**/*.js'
 				],
-				tasks: ["babel"]
+				tasks: ["babel", "copy:lib"]
 			},
 			sass: {
 				files: [
-					'public/assets/scss/**/*.scss'
+					'dev/public/assets/scss/**/*.scss'
 				],
 				tasks: ["sass"],
 				options: {
@@ -57,14 +56,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		requirejs: {
-			compile: {
-				options: {
-					// url that is relative to the require paths
-					baseUrl: "public/assets/scripts/dist/",
-					mainConfigFile: "public/assets/scripts/js/almond-config.js",
-					out: "public/assets/scripts/js/app.js"
-				}
+		copy: {
+			lib: {
+				files: [
+					{
+						expand: true,
+						cwd: "dev/public/assets/scripts/dist/",
+						src: ["**"],
+						dest: "lib/"
+					}
+				]
 			}
 		}
 	});
@@ -74,10 +75,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.registerTask("default", ["compile", "develop", "watch"]);
 
-	grunt.registerTask("compile", ["babel", "sass"]);
-	grunt.registerTask("build", ["compile", "requirejs"]);
+	grunt.registerTask("compile", ["babel", "copy:lib", "sass"]);
 
 };
