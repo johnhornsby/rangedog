@@ -15,14 +15,6 @@ define(["exports", "module", "./utils", "./animators/friction"], function (expor
     function Animate(options) {
       _classCallCheck(this, Animate);
 
-      this._DEFAULT_OPTIONS = {
-        time: 1000,
-        startValue: 0,
-        endValue: 1,
-        update: function update() {},
-        complete: function complete() {}
-      };
-
       this._time = null;
       this._startValue = null;
       this._endValue = null;
@@ -42,25 +34,18 @@ define(["exports", "module", "./utils", "./animators/friction"], function (expor
     _createClass(Animate, [{
       key: "start",
       value: function start() {
-        this._lastTime = 0;
-        this._startTime = 0;
-        this._deltas = [];
-
-        this._animator = new _Friction();
         this._start();
-        return this;
       }
     }, {
       key: "destroy",
       value: function destroy() {
-        window.cancelAnimationFrame(this._requestionAnimationFrameID);
-        this._options = null;
+        this._destroy();
       }
     }, {
       key: "_init",
       value: function _init(options) {
         // Quick merge of default and incoming options
-        _Utils.extend(this._options, this._DEFAULT_OPTIONS);
+        _Utils.extend(this._options, Animate._DEFAULT_OPTIONS);
         _Utils.extend(this._options, options);
 
         // time we can ignore for some of the animators
@@ -71,9 +56,20 @@ define(["exports", "module", "./utils", "./animators/friction"], function (expor
     }, {
       key: "_start",
       value: function _start() {
+        this._lastTime = 0;
+        this._startTime = 0;
+        this._deltas = [];
+
+        this._animator = new _Friction();
         this._isAnimating = true;
         this._startTime = this._lastTime = new Date().getTime();
         this._tick();
+      }
+    }, {
+      key: "_destroy",
+      value: function _destroy() {
+        window.cancelAnimationFrame(this._requestionAnimationFrameID);
+        this._options = null;
       }
     }, {
       key: "_tick",
@@ -95,6 +91,17 @@ define(["exports", "module", "./utils", "./animators/friction"], function (expor
           this._options.complete();
           this._isAnimating = false;
         }
+      }
+    }], [{
+      key: "_DEFAULT_OPTIONS",
+      get: function () {
+        return {
+          time: 1000,
+          startValue: 0,
+          endValue: 1,
+          update: function update() {},
+          complete: function complete() {}
+        };
       }
     }]);
 

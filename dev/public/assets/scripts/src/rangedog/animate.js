@@ -1,19 +1,19 @@
 import Utils from "./utils";
 import Friction from "./animators/friction";
 
-const Animate = class Animate {
+export default class Animate {
 
+  static get _DEFAULT_OPTIONS() { return {
+    time: 1000,
+    startValue: 0,
+    endValue: 1, 
+    update: function(){},
+    complete: function(){}
+  }}
   
+
   constructor(options) {
    
-    this._DEFAULT_OPTIONS = {
-      time: 1000,
-      startValue: 0,
-      endValue: 1, 
-      update: function(){},
-      complete: function(){}
-    };
-
     this._time = null;
     this._startValue = null;
     this._endValue = null;
@@ -31,26 +31,14 @@ const Animate = class Animate {
   }
   
   
-  start() {
-    this._lastTime = 0;
-    this._startTime = 0;
-    this._deltas = [];
+  start() { this._start() }
 
-    this._animator = new Friction();
-    this._start();
-    return this;      
-  }
-
-
-  destroy() {
-    window.cancelAnimationFrame(this._requestionAnimationFrameID);
-    this._options = null;
-  }
+  destroy() { this._destroy() }
 
   
   _init(options) {
     // Quick merge of default and incoming options
-    Utils.extend(this._options, this._DEFAULT_OPTIONS);
+    Utils.extend(this._options, Animate._DEFAULT_OPTIONS);
     Utils.extend(this._options, options);
     
     // time we can ignore for some of the animators
@@ -61,11 +49,22 @@ const Animate = class Animate {
   
 
   _start() {
+    this._lastTime = 0;
+    this._startTime = 0;
+    this._deltas = [];
+
+    this._animator = new Friction();
     this._isAnimating = true;
     this._startTime = this._lastTime = new Date().getTime();
     this._tick();
   }
   
+  
+  _destroy() {
+    window.cancelAnimationFrame(this._requestionAnimationFrameID);
+    this._options = null;
+  }
+
   
   _tick() {
     const now = new Date().getTime();
@@ -87,5 +86,3 @@ const Animate = class Animate {
     }
   }
 }
-
-export default Animate;

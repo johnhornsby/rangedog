@@ -31,19 +31,22 @@ define(["exports", "require", "./rangedog/rangedog", "dragger"], function (expor
 			value: function _init() {
 				var elem = document.getElementsByClassName("range")[0];
 				this._dragger = new _Dragger(elem);
-				this._dragger.create();
+				this._dragger.activate();
 
 				var options = {
 					length: 180,
 					wrap: true,
 					inertia: true,
-					rounded: true,
-					update: this._onRangeUpdate.bind(this)
+					rounded: true
 				};
 				this._rangedog = new _Rangedog(options);
+				this._rangedog.on(_Rangedog.RANGEDOG_EVENT_UPDATE, this._onRangeUpdate.bind(this));
+				this._rangedog.on(_Rangedog.RANGEDOG_EVENT_INERTIA_COMPLETE, this._onRangeInertiaComplete.bind(this));
 
+				this._dragger.on("dragStart", this._onDragStart.bind(this));
 				this._dragger.on("dragMove", this._onDragMove.bind(this));
 				this._dragger.on("dragEnd", this._onDragEnd.bind(this));
+				this._dragger.on("pointerDone", this._onPointerDone.bind(this));
 
 				var nextButton = document.getElementsByClassName("range__next")[0];
 				var prevButton = document.getElementsByClassName("range__previous")[0];
@@ -70,10 +73,25 @@ define(["exports", "require", "./rangedog/rangedog", "dragger"], function (expor
 				this._content.style.transform = "translate3d(" + x + "%, 0, 0)";
 			}
 		}, {
+			key: "_onRangeInertiaComplete",
+			value: function _onRangeInertiaComplete() {
+				console.log("_onRangeInertiaComplete");
+			}
+		}, {
 			key: "_onDragMove",
 			value: function _onDragMove(deltaX) {
-				//console.log(deltaX);
+				console.log(deltaX);
 				this._rangedog.increment(deltaX);
+			}
+		}, {
+			key: "_onDragStart",
+			value: function _onDragStart() {
+				console.log("_onDragStart");
+			}
+		}, {
+			key: "_onPointerDone",
+			value: function _onPointerDone() {
+				console.log("_onPointerDone");
 			}
 		}, {
 			key: "_onDragEnd",

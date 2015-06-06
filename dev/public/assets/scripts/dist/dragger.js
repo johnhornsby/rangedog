@@ -28,8 +28,8 @@ define(["exports", "module", "unidragger"], function (exports, module, _unidragg
 		_inherits(Dragger, _Unidragger);
 
 		_createClass(Dragger, [{
-			key: "create",
-			value: function create() {
+			key: "activate",
+			value: function activate() {
 				this.handles = [this._element];
 				this.bindHandles();
 			}
@@ -44,7 +44,7 @@ define(["exports", "module", "unidragger"], function (exports, module, _unidragg
 		}, {
 			key: "dragMove",
 			value: function dragMove(event, pointer, moveVector) {
-
+				// console.log("dragMove");
 				var x = this._modifier * moveVector.x;
 
 				var delta = x - this._last;
@@ -66,7 +66,7 @@ define(["exports", "module", "unidragger"], function (exports, module, _unidragg
 				if (this._isDragging === true) {
 					return;
 				}
-				//console.log(`pointerDone x:${this.pointerDownPoint.x} y:${this.pointerDownPoint.y}`);
+				this.emit("pointerDone", this.pointerDownPoint.x, this.pointerDownPoint.y);
 			}
 		}]);
 

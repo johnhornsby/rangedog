@@ -14,7 +14,7 @@ export default class Dragger extends Unidragger {
 	}
 
 
-	create() {
+	activate() {
 		this.handles = [ this._element ];
   		this.bindHandles();
 	}
@@ -29,14 +29,14 @@ export default class Dragger extends Unidragger {
 
 
 	dragMove( event, pointer, moveVector ) {
-	  
-	  const x = this._modifier * moveVector.x;
+		// console.log("dragMove");
+		const x = this._modifier * moveVector.x;
 
-	  const delta = x - this._last;
+		const delta = x - this._last;
 
-	  this._last = x;
+		this._last = x;
 
-	  this.emit("dragMove", delta);
+		this.emit("dragMove", delta);
 	}
 
 
@@ -50,6 +50,6 @@ export default class Dragger extends Unidragger {
 		if (this._isDragging === true) {
 			return;
 		}
-		//console.log(`pointerDone x:${this.pointerDownPoint.x} y:${this.pointerDownPoint.y}`);
+		this.emit("pointerDone", this.pointerDownPoint.x, this.pointerDownPoint.y);
 	}
 }

@@ -1,23 +1,32 @@
 import EventEmitter from "eventEmitter/EventEmitter";
-import Animate from "animate";
-import Utils from "utils";
+import Animate from "./animate";
+import Utils from "./utils";
 
 
-const Rangedog = class Rangedog extends EventEmitter {
+export default class Rangedog extends EventEmitter {
 
 
+	static get _DEFAULT_OPTIONS() { return {
+		length: 1,
+		frameLength:1,
+		wrap: false,
+		inertia: false,
+		rounded: false
+	}}
+
+
+	static get RANGEDOG_EVENT_UPDATE() { return "eventUpdate" };
+
+	static get RANGEDOG_EVENT_INERTIA_COMPLETE() { return "eventInertiaComplete" };
+
+	static get RANGEDOG_EVENT_INERTIA_NONE() { return "eventInertiaNone" };
+
+	static get RANGEDOG_EVENT_INERTIA_START() { return "eventInertiaStart" };
 	
+
 	constructor(options) {
 		super();
 
-		this._DEFAULT_OPTIONS = {
-			length: 1,
-			frameLength:1,
-			wrap: false,
-			inertia: false,
-			rounded: false,
-			update: function() {}
-		};
 		this._options = {};
 		this._length = null;
 		this._inertia = null;
@@ -48,10 +57,9 @@ const Rangedog = class Rangedog extends EventEmitter {
 	activateInertiaIfAny() { this._activateInertia() }
 
 
-
 	_init(options) {
 		// Quick merge of default and incoming options
-		Utils.extend(this._options, this._DEFAULT_OPTIONS);
+		Utils.extend(this._options, Rangedog._DEFAULT_OPTIONS);
 		Utils.extend(this._options, options);
 		this._length = this._options.length;
 		this._wrap = this._options.wrap;
@@ -152,7 +160,7 @@ const Rangedog = class Rangedog extends EventEmitter {
 				this._roundedX = x;
 			}
 		}
-		this._updateCallback(x);
+		this.emit(Rangedog.RANGEDOG_EVENT_UPDATE, x);
 	}
 
 
@@ -189,26 +197,26 @@ const Rangedog = class Rangedog extends EventEmitter {
 
 	_onAnimateComplete() {
 		this._clearAnimation();
+		this.emit(Rangedog.RANGEDOG_EVENT_INERTIA_COMPLETE);
 	}
 
 
 	_activateInertia() {
+		let hasInertia = true;
 		if (!this._deltas && this._deltas.length === 0) {
-			return false;
+			hasInertia = false;
 		}
 		const deltaInfo = this._deltas.pop();
 		const velocity = deltaInfo.x;
 		if (new Date().getTime() - deltaInfo.time > 100) {
-			return false;
+			hasInertia = false;
 		}
-
-		const destinationX = this._x + (velocity / 0.1);
-		console.log(`_activateInertia: destinationX ${destinationX} velocity ${velocity}`);
-		this._slideTo(destinationX, false);
-
+		if (hasInertia === true) {
+			const destinationX = this._x + (velocity / 0.1);
+			this._slideTo(destinationX, false);
+			this.emit(Rangedog.RANGEDOG_EVENT_INERTIA_START);
+		} else {
+			this.emit(Rangedog.RANGEDOG_EVENT_INERTIA_NONE);
+		}
 	}
-
 }
-
-
-export default Rangedog;

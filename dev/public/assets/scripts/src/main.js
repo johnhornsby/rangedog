@@ -20,19 +20,22 @@ class Main {
 	_init() {
 		const elem = document.getElementsByClassName('range')[0];
 		this._dragger = new Dragger(elem);
-		this._dragger.create();
+		this._dragger.activate();
 
 		const options = {
 			length: 180,
 			wrap: true,
 			inertia: true,
-			rounded: true,
-			update: this._onRangeUpdate.bind(this)
+			rounded: true
 		}
 		this._rangedog = new Rangedog(options);
+		this._rangedog.on(Rangedog.RANGEDOG_EVENT_UPDATE, this._onRangeUpdate.bind(this));
+		this._rangedog.on(Rangedog.RANGEDOG_EVENT_INERTIA_COMPLETE, this._onRangeInertiaComplete.bind(this));
 
+		this._dragger.on('dragStart', this._onDragStart.bind(this));
 		this._dragger.on('dragMove', this._onDragMove.bind(this));
 		this._dragger.on('dragEnd', this._onDragEnd.bind(this));
+		this._dragger.on('pointerDone', this._onPointerDone.bind(this));
 
 		const nextButton = document.getElementsByClassName('range__next')[0];
 		const prevButton = document.getElementsByClassName('range__previous')[0];
@@ -60,10 +63,21 @@ class Main {
 		this._content.style.transform = `translate3d(${x}%, 0, 0)`;
 	}
 
+	_onRangeInertiaComplete() {
+		console.log("_onRangeInertiaComplete");
+	}
 
 	_onDragMove(deltaX) {
-		//console.log(deltaX);
+		console.log(deltaX);
 		this._rangedog.increment(deltaX);
+	}
+
+	_onDragStart() {
+		console.log("_onDragStart");
+	}
+
+	_onPointerDone() {
+		console.log("_onPointerDone");
 	}
 
 
