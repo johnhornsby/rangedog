@@ -6,6 +6,8 @@ const Utils = class Utils {
         }
         return copyTo;
     }
+
+    
   
     sum(arr) {
         let sum = 0;

@@ -2,7 +2,7 @@
 import require from "require";
 
 // App Modules
-import Rangedog from "./rangedog/rangedog";
+import Rangedog from "rangedog/rangedog";
 import Dragger from "dragger";
 
 
@@ -31,6 +31,9 @@ class Main {
 		this._rangedog = new Rangedog(options);
 		this._rangedog.on(Rangedog.RANGEDOG_EVENT_UPDATE, this._onRangeUpdate.bind(this));
 		this._rangedog.on(Rangedog.RANGEDOG_EVENT_INERTIA_COMPLETE, this._onRangeInertiaComplete.bind(this));
+		this._rangedog.on(Rangedog.RANGEDOG_EVENT_INERTIA_NONE, this._onRangeInertiaNone.bind(this));
+		this._rangedog.on(Rangedog.RANGEDOG_EVENT_INERTIA_START, this._onRangeInertiaStart.bind(this));
+		this._rangedog.on(Rangedog.RANGEDOG_EVENT_SLIDE_TO_COMPLETE, this._onRangeSlideToComplete.bind(this));
 
 		this._dragger.on('dragStart', this._onDragStart.bind(this));
 		this._dragger.on('dragMove', this._onDragMove.bind(this));
@@ -48,12 +51,12 @@ class Main {
 
 
 	_onNextClick() {
-		this._rangedog.slideTo(this._rangedog.index - 50);
+		this._rangedog.slideTo(this._rangedog.index - 50, 0.05);
 	}
 
 
 	_onPreviousClick() {
-		this._rangedog.slideTo(45);
+		this._rangedog.slideTo(45, 0.33);
 	}
 
 
@@ -66,6 +69,20 @@ class Main {
 	_onRangeInertiaComplete() {
 		console.log("_onRangeInertiaComplete");
 	}
+
+	_onRangeInertiaNone() {
+		console.log("_onRangeInertiaNone");
+	}
+
+	_onRangeInertiaStart() {
+		console.log("_onRangeInertiaStart");
+	}
+
+	_onRangeSlideToComplete() {
+		console.log("_onRangeSlideToComplete");
+	}
+
+
 
 	_onDragMove(deltaX) {
 		console.log(deltaX);

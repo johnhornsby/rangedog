@@ -1,4 +1,4 @@
-define(["exports", "require", "./rangedog/rangedog", "dragger"], function (exports, _require, _rangedogRangedog, _dragger) {
+define(["exports", "require", "rangedog/rangedog", "dragger"], function (exports, _require, _rangedogRangedog, _dragger) {
 	"use strict";
 
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -42,6 +42,9 @@ define(["exports", "require", "./rangedog/rangedog", "dragger"], function (expor
 				this._rangedog = new _Rangedog(options);
 				this._rangedog.on(_Rangedog.RANGEDOG_EVENT_UPDATE, this._onRangeUpdate.bind(this));
 				this._rangedog.on(_Rangedog.RANGEDOG_EVENT_INERTIA_COMPLETE, this._onRangeInertiaComplete.bind(this));
+				this._rangedog.on(_Rangedog.RANGEDOG_EVENT_INERTIA_NONE, this._onRangeInertiaNone.bind(this));
+				this._rangedog.on(_Rangedog.RANGEDOG_EVENT_INERTIA_START, this._onRangeInertiaStart.bind(this));
+				this._rangedog.on(_Rangedog.RANGEDOG_EVENT_SLIDE_TO_COMPLETE, this._onRangeSlideToComplete.bind(this));
 
 				this._dragger.on("dragStart", this._onDragStart.bind(this));
 				this._dragger.on("dragMove", this._onDragMove.bind(this));
@@ -58,12 +61,12 @@ define(["exports", "require", "./rangedog/rangedog", "dragger"], function (expor
 		}, {
 			key: "_onNextClick",
 			value: function _onNextClick() {
-				this._rangedog.slideTo(this._rangedog.index - 50);
+				this._rangedog.slideTo(this._rangedog.index - 50, 0.05);
 			}
 		}, {
 			key: "_onPreviousClick",
 			value: function _onPreviousClick() {
-				this._rangedog.slideTo(45);
+				this._rangedog.slideTo(45, 0.33);
 			}
 		}, {
 			key: "_onRangeUpdate",
@@ -76,6 +79,21 @@ define(["exports", "require", "./rangedog/rangedog", "dragger"], function (expor
 			key: "_onRangeInertiaComplete",
 			value: function _onRangeInertiaComplete() {
 				console.log("_onRangeInertiaComplete");
+			}
+		}, {
+			key: "_onRangeInertiaNone",
+			value: function _onRangeInertiaNone() {
+				console.log("_onRangeInertiaNone");
+			}
+		}, {
+			key: "_onRangeInertiaStart",
+			value: function _onRangeInertiaStart() {
+				console.log("_onRangeInertiaStart");
+			}
+		}, {
+			key: "_onRangeSlideToComplete",
+			value: function _onRangeSlideToComplete() {
+				console.log("_onRangeSlideToComplete");
 			}
 		}, {
 			key: "_onDragMove",

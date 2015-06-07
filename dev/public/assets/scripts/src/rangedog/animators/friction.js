@@ -1,10 +1,10 @@
 export default class FrictionAnimator {
   
 
-  constructor() {
+  constructor(friction = 0.1) {
     this._velocity = 0;
     this._tolerance = 1 / 1000;
-    this._friction = 0.1;
+    this._friction = friction;
     this._x = 0;
     this._destinationX = 1;
     this._acceleration = (this._destinationX - this._x) * this._friction;

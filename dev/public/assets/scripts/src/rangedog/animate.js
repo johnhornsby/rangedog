@@ -1,5 +1,5 @@
-import Utils from "./utils";
-import Friction from "./animators/friction";
+import Utils from "rangedog/utils";
+import Friction from "rangedog/animators/friction";
 
 export default class Animate {
 
@@ -8,7 +8,8 @@ export default class Animate {
     startValue: 0,
     endValue: 1, 
     update: function(){},
-    complete: function(){}
+    complete: function(){},
+    friction: 0.1
   }}
   
 
@@ -38,8 +39,8 @@ export default class Animate {
   
   _init(options) {
     // Quick merge of default and incoming options
-    Utils.extend(this._options, Animate._DEFAULT_OPTIONS);
-    Utils.extend(this._options, options);
+    Utils.extend(this._options, Animate._DEFAULT_OPTIONS, true);
+    Utils.extend(this._options, options, true);
     
     // time we can ignore for some of the animators
     this._time = this._options.time;
@@ -53,7 +54,7 @@ export default class Animate {
     this._startTime = 0;
     this._deltas = [];
 
-    this._animator = new Friction();
+    this._animator = new Friction(this._options.friction);
     this._isAnimating = true;
     this._startTime = this._lastTime = new Date().getTime();
     this._tick();

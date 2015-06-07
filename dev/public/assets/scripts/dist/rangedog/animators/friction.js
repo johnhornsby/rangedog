@@ -7,11 +7,13 @@ define(["exports", "module"], function (exports, module) {
 
   var FrictionAnimator = (function () {
     function FrictionAnimator() {
+      var friction = arguments[0] === undefined ? 0.1 : arguments[0];
+
       _classCallCheck(this, FrictionAnimator);
 
       this._velocity = 0;
       this._tolerance = 1 / 1000;
-      this._friction = 0.1;
+      this._friction = friction;
       this._x = 0;
       this._destinationX = 1;
       this._acceleration = (this._destinationX - this._x) * this._friction;

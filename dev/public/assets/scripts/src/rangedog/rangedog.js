@@ -1,6 +1,6 @@
 import EventEmitter from "eventEmitter/EventEmitter";
-import Animate from "./animate";
-import Utils from "./utils";
+import Animate from "rangedog/animate";
+import Utils from "rangedog/utils";
 
 
 export default class Rangedog extends EventEmitter {
@@ -22,6 +22,8 @@ export default class Rangedog extends EventEmitter {
 	static get RANGEDOG_EVENT_INERTIA_NONE() { return "eventInertiaNone" };
 
 	static get RANGEDOG_EVENT_INERTIA_START() { return "eventInertiaStart" };
+
+	static get RANGEDOG_EVENT_SLIDE_TO_COMPLETE() { return "eventSlideToComplete" };
 	
 
 	constructor(options) {
@@ -38,7 +40,8 @@ export default class Rangedog extends EventEmitter {
 		this._roundedX = 0;
 		this._deltas = null;
 		this._animateInstance = null;
-		this._isAnimating = true;
+		this._isAnimating = false;
+		this._isAnimatingInertia = false;
 
 		this._init(options);
 	}
@@ -50,11 +53,13 @@ export default class Rangedog extends EventEmitter {
 
 	setTo(x) { this._setTo(x) }
 
-	slideTo(x) { this._slideTo(x) }
+	slideTo(x, friction) { this._slideTo(x, friction) }
 
 	stop() { this._stop() }
 
 	activateInertiaIfAny() { this._activateInertia() }
+
+	destroy() { this._destroy() }
 
 
 	_init(options) {
@@ -84,12 +89,13 @@ export default class Rangedog extends EventEmitter {
 	}
 
 
-	_slideTo(x, toNearest = true) {
+	_slideTo(x, friction, toNearest = true, isInertia = false) {
 		this._clearAnimation();
 		if (x === this._x) {
 			return false;
 		}
 		this._isAnimating = true;
+		this._isAnimatingInertia = isInertia;
 		if (toNearest === true) {
 			x = this._checkAndAdjustPolarityForShortestDistance(x, this._x, this._length);
 		}
@@ -97,7 +103,8 @@ export default class Rangedog extends EventEmitter {
 			startValue: this._x,
 			endValue: x,
 			update: this._onAnimateUpdate.bind(this),
-			complete: this._onAnimateComplete.bind(this)
+			complete: this._onAnimateComplete.bind(this),
+			friction: friction
 		});
 		this._animateInstance.start();
 		return true;
@@ -142,6 +149,10 @@ export default class Rangedog extends EventEmitter {
 		this._clearAnimation();
 	}
 
+	_destroy() {
+		this._stop();
+		this.removeAllListeners();
+	}
 
 	_setX(x) {
 		this._x = x;
@@ -182,7 +193,7 @@ export default class Rangedog extends EventEmitter {
 
 
 	_clearAnimation() {
-		this._isAnimating = false;
+		this._isAnimating = this._isAnimatingInertia = false;
 		if (this._animateInstance) {
 			this._animateInstance.destroy();
 			this._animateInstance = null;
@@ -196,8 +207,12 @@ export default class Rangedog extends EventEmitter {
 
 
 	_onAnimateComplete() {
+		if (this._isAnimatingInertia === true) {
+			this.emit(Rangedog.RANGEDOG_EVENT_INERTIA_COMPLETE);
+		} else {
+			this.emit(Rangedog.RANGEDOG_EVENT_SLIDE_TO_COMPLETE);
+		}
 		this._clearAnimation();
-		this.emit(Rangedog.RANGEDOG_EVENT_INERTIA_COMPLETE);
 	}
 
 
@@ -213,7 +228,7 @@ export default class Rangedog extends EventEmitter {
 		}
 		if (hasInertia === true) {
 			const destinationX = this._x + (velocity / 0.1);
-			this._slideTo(destinationX, false);
+			this._slideTo(destinationX, 0.1, false, true);
 			this.emit(Rangedog.RANGEDOG_EVENT_INERTIA_START);
 		} else {
 			this.emit(Rangedog.RANGEDOG_EVENT_INERTIA_NONE);

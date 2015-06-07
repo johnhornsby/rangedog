@@ -10,7 +10,8 @@ requirejs.config({
 		unidragger: '../../bower_components/unidragger/unidragger',
 		
 		// eventEmitter: '../../bower_components/eventEmitter/EventEmitter',
-		'eventEmitter/EventEmitter': '../../bower_components/eventEmitter/EventEmitter'
+		'eventEmitter/EventEmitter': '../../bower_components/eventEmitter/EventEmitter',
+		rangedog: 'rangedog'
       	
 	}
 });
