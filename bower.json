@@ -1,6 +1,6 @@
 {
   "name": "rangedog",
-  "version": "1.0.1-beta.2",
+  "version": "3.0.0",
   "description": "Script that controls a linear range of numbers, abstracted from the DOM, but intended to be used to control UI components such as carousels and 360's",
   "main": [
     "lib/rangedog.js"
@@ -23,8 +23,5 @@
     "eventEmitter": "~4.2.11"
   },
   "devDependencies": {
-    "jquery": "~2.1.4",
-    "requirejs": "~2.1.18",
-    "unidragger": "~1.1.3"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "name": "range-dog-dev",
+  "version": "1.0.0",
+  "description": "Automatically outputs into lib and dist, useful when developing RangeDog with other libraries",
+  "scripts": {
+    "dev": "grunt"
+  },
+  "author": "john@interactivelabs.co.uk",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-babel": "^5.0.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-exec": "^0.4.6"
+  }
+}
