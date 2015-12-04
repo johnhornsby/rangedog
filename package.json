@@ -2,9 +2,7 @@
   "name": "range-dog",
   "version": "3.0.0",
   "description": "Script that controls a linear range of numbers, abstracted from the DOM, but intended to be used to control UI components such as carousels and 360's",
-  "main": [
-    "lib/rangedog.js"
-  ],
+  "main": "lib/rangedog.js",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
     "build:umd": "webpack",
